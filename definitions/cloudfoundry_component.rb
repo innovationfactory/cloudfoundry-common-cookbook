@@ -1,7 +1,6 @@
 define :cloudfoundry_component do
   include_recipe "logrotate"
   include_recipe "cloudfoundry-common"
-  include_recipe "cloudfoundry-common::vcap"
 
   component_name = params[:component_name] || "cloudfoundry-#{params[:name]}"
 
@@ -12,6 +11,14 @@ define :cloudfoundry_component do
   pid_file     = params[:pid_file] || File.join(node["cloudfoundry_#{params[:name]}"].pid_file)
   log_file     = params[:log_file] || File.join(node["cloudfoundry_#{params[:name]}"].log_file)
   binary       = params[:binary]   || "#{File.join(ruby_path, "ruby")} #{bin_file}"
+
+  git node['cloudfoundry_common']['vcap']['install_path'] do
+    repository        node['cloudfoundry_common'][params[:name]]['repo']
+    reference         node['cloudfoundry_common'][params[:name]]['reference']
+    user              node['cloudfoundry_common']['user']
+    enable_submodules true
+    action :sync
+  end
 
   rbenv_gem "bundler" do
     ruby_version node.cloudfoundry_common.ruby_1_9_2_version

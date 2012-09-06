@@ -7,12 +7,20 @@ default[:cloudfoundry_common][:user] = ENV['USER']
 # Where to install the CloudFoundry code.
 default[:cloudfoundry_common][:vcap][:install_path] = "/srv/vcap"
 
-# Repository to use when fetching the CloudFoundry code.
-default[:cloudfoundry_common][:vcap][:repo]         = "https://github.com/cloudfoundry/vcap.git"
-
-# Git reference to use when fetching the CloudFoundry code. Can be
+# Repositories to use when fetching the CloudFoundry code.
+# Git references to use when fetching the CloudFoundry code. Can be
 # either a specific sha or a reference such as `HEAD` or `master`.
-default[:cloudfoundry_common][:vcap][:reference]    = "d92cfbb64e3974e64ef71630997f447825830729"
+default[:cloudfoundry_common][:cloud_controller][:repo]      = "https://github.com/cloudfoundry/cloud_controller.git"
+default[:cloudfoundry_common][:cloud_controller][:reference] = "master"
+
+default[:cloudfoundry_common][:dea][:repo]                   = "https://github.com/cloudfoundry/dea.git"
+default[:cloudfoundry_common][:dea][:reference]              = "master"
+
+default[:cloudfoundry_common][:router][:repo]                = "https://github.com/cloudfoundry/router.git"
+default[:cloudfoundry_common][:router][:reference]           = "master"
+
+default[:cloudfoundry_common][:stager][:repo]                = "https://github.com/cloudfoundry/stager.git"
+default[:cloudfoundry_common][:stager][:reference]           = "master"
 
 # local_route is the IP address of a well known server on your network, it
 # is used to choose the right ip address (think of hosts that have multiple nics
