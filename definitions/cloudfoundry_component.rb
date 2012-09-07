@@ -12,12 +12,14 @@ define :cloudfoundry_component do
   log_file     = params[:log_file] || File.join(node["cloudfoundry_#{params[:name]}"].log_file)
   binary       = params[:binary]   || "#{File.join(ruby_path, "ruby")} #{bin_file}"
 
-  git node['cloudfoundry_common']['vcap']['install_path'] do
-    repository        node['cloudfoundry_common'][params[:name]]['repo']
-    reference         node['cloudfoundry_common'][params[:name]]['reference']
-    user              node['cloudfoundry_common']['user']
-    enable_submodules true
-    action :sync
+  if %w(cloud_controller dea router stager).include? params[:name]
+    git node['cloudfoundry_common']['vcap']['install_path'] do
+      repository        node['cloudfoundry_common'][params[:name]]['repo']
+      reference         node['cloudfoundry_common'][params[:name]]['reference']
+      user              node['cloudfoundry_common']['user']
+      enable_submodules true
+      action :sync
+    end
   end
 
   rbenv_gem "bundler" do
