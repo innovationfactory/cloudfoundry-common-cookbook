@@ -29,7 +29,7 @@ define :cloudfoundry_component do
   bash "install #{component_name} gems" do
     user node.cloudfoundry_common.user
     cwd  install_path
-    code "#{File.join(ruby_path, "bundle")} install --without=test --local"
+    code "#{File.join(ruby_path, "bundle")} install --without=test"
     only_if { File.exist?(install_path) }
   end
 
