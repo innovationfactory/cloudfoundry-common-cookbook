@@ -29,7 +29,7 @@ define :cloudfoundry_component do
   bash "install #{component_name} gems" do
     user node.cloudfoundry_common.user
     cwd  install_path
-    code "#{File.join(ruby_path, "bundle")} install --without=test --local"
+    code "#{File.join(ruby_path, "bundle")} install --without=test"
     only_if { File.exist?(install_path) }
   end
 
@@ -54,6 +54,18 @@ define :cloudfoundry_component do
 
   link "/etc/init.d/#{component_name}" do
     to "/lib/init/upstart-job"
+  end
+
+  template "#{node['bluepill']['conf_dir']}/#{component_name}.pill" do
+    source "#{component_name}.pill.erb"
+    cookbook component_name
+    mode 0644
+    variables(
+      :component_name => component_name,
+      :path        => ruby_path,
+      :binary      => binary,
+      :config_file => config_file
+    )
   end
 
   service component_name do
