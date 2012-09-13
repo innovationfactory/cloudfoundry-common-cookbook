@@ -57,3 +57,10 @@ directory node[:cloudfoundry_common][:services_dir] do
   owner node[:cloudfoundry_common][:user]
   mode  '0755'
 end
+
+directory node[:cloudfoundry_common][:vcap][:install_path] do
+  recursive true
+  owner node[:cloudfoundry_common][:user]
+  mode  '0755'
+end
+
