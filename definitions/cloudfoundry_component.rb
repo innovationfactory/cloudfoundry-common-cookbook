@@ -12,7 +12,7 @@ define :cloudfoundry_component do
   log_file     = params[:log_file] || File.join(node["cloudfoundry_#{params[:name]}"].log_file)
   binary       = params[:binary]   || "#{File.join(ruby_path, "ruby")} #{bin_file}"
 
-  if %w(cloud_controller health_manager dea router stager).include? params[:name]
+  if %w(cloud_controller dea router stager).include? params[:name]
     git File.join(node['cloudfoundry_common']['vcap']['install_path'], params[:name]) do
       repository        node['cloudfoundry_common'][params[:name]]['repo']
       reference         node['cloudfoundry_common'][params[:name]]['reference']

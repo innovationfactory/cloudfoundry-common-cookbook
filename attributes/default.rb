@@ -10,11 +10,8 @@ default[:cloudfoundry_common][:vcap][:install_path] = "/srv/vcap"
 # Repositories to use when fetching the CloudFoundry code.
 # Git references to use when fetching the CloudFoundry code. Can be
 # either a specific sha or a reference such as `HEAD` or `master`.
-default[:cloudfoundry_common][:cloud_controller][:repo]      = "https://github.com/cloudfoundry/cloud_controller_ng.git"
+default[:cloudfoundry_common][:cloud_controller][:repo]      = "https://github.com/cloudfoundry/cloud_controller.git"
 default[:cloudfoundry_common][:cloud_controller][:reference] = "master"
-
-default[:cloudfoundry_common][:health_manager][:repo]        = "https://github.com/cloudfoundry/health_manager.git"
-default[:cloudfoundry_common][:health_manager][:reference]   = "master"
 
 default[:cloudfoundry_common][:dea][:repo]                   = "https://github.com/cloudfoundry/dea.git"
 default[:cloudfoundry_common][:dea][:reference]              = "master"
