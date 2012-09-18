@@ -81,3 +81,7 @@ default[:cloudfoundry_common][:pid_dir]    = "/var/run/cloudfoundry"
 # The token to use to authenticate services to cloudfoundry. This _may_
 # not be safe to change.
 default[:cloudfoundry_common][:service_token] = "0xdeadbeef"
+
+# Vlan network interface
+# ipadress of this interface is used for local routes
+default[:cloudfoundry_common][:vlan_interface] = "eth0"
