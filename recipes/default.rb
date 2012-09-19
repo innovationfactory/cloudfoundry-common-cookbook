@@ -25,8 +25,8 @@ if Chef::Config[:solo]
 else
   nats_server_node = search(:node, 'recipes:nats-server')
   unless nats_server_node.empty?
-    node[:nats_server][:user] = nats_server_node[0][:nats_server][:user]
-    node[:nats_server][:password] = nats_server_node[0][:nats_server][:password]
+    node[:cloudfoundry_common][:nats_server][:user] = nats_server_node[0][:nats_server][:user]
+    node[:cloudfoundry_common][:nats_server][:password] = nats_server_node[0][:nats_server][:password]
     node[:cloudfoundry_common][:nats_server][:host] = nats_server_node[0][:ipaddress]
     node[:cloudfoundry_common][:nats_server][:port] = nats_server_node[0][:nats_server][:port]
   end
