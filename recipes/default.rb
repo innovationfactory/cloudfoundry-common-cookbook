@@ -20,15 +20,18 @@
 interface = node[:cloudfoundry_common][:vlan_interface]
 node.automatic_attrs[:ipaddress] = node["network"]["interfaces"][interface]["routes"][0]["src"]
 
-if Chef::Config[:solo]
-  Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+if node[:recipes].include?("nats-server") # nats-server is on same node, therefore it has the same IP address: search not necessary.
+  node[:cloudfoundry_common][:nats_server][:host] = node[:ipaddress]
 else
-  nats_server_node = search(:node, 'recipes:nats-server')
-  unless nats_server_node.empty?
-    node[:nats_server][:user] = nats_server_node[0][:nats_server][:user]
-    node[:nats_server][:password] = nats_server_node[0][:nats_server][:password]
-    node[:cloudfoundry_common][:nats_server][:host] = nats_server_node[0][:ipaddress]
-    node[:cloudfoundry_common][:nats_server][:port] = nats_server_node[0][:nats_server][:port]
+  if Chef::Config[:solo]
+    Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+  else
+    nats_server_node = search(:node, 'recipes:nats-server')
+    if nats_server_node.empty?
+      Chef::Log.error("No node with nats-server recipe found.")
+    else
+      node[:cloudfoundry_common][:nats_server][:host] = nats_server_node[0][:ipaddress]
+    end
   end
 end
 
