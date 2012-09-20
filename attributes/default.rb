@@ -69,6 +69,9 @@ default[:cloudfoundry_common][:nats_server][:host] = "localhost"
 # messaging.
 default[:cloudfoundry_common][:nats_server][:port] = "4222"
 
+default[:cloudfoundry_common][:nats_server][:user] = "nats"
+default[:cloudfoundry_common][:nats_server][:password] = "nats"
+
 # Where to write config files for all CloudFoundry components.
 default[:cloudfoundry_common][:config_dir] = "/etc/cloudfoundry"
 
