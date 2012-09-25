@@ -17,6 +17,12 @@
 # limitations under the License.
 #
 
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
+# randomly generate nats password
+node.set_unless[:cloudfoundry_common][:nats_server][:password] = secure_password
+node.save unless Chef::Config[:solo]
+
 interface = node[:cloudfoundry_common][:vlan_interface]
 node.automatic_attrs[:ipaddress] = node["network"]["interfaces"][interface]["routes"][0]["src"]
 
