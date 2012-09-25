@@ -10,6 +10,10 @@ stop on runlevel [016]
 
 respawn
 
+<% @env_vars.each do |env| %>
+env <%= env %>
+<% end %>
+
 env PATH="<%= @path %>:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH
 

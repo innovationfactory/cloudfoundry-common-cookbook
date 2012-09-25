@@ -11,6 +11,7 @@ define :cloudfoundry_component do
   pid_file     = params[:pid_file] || File.join(node["cloudfoundry_#{params[:name]}"].pid_file)
   log_file     = params[:log_file] || File.join(node["cloudfoundry_#{params[:name]}"].log_file)
   binary       = params[:binary]   || "#{File.join(ruby_path, "ruby")} #{bin_file}"
+  env_vars     = params[:env_vars] || []
 
   if %w(cloud_controller dea router stager).include? params[:name]
     git File.join(node['cloudfoundry_common']['vcap']['install_path'], params[:name]) do
@@ -47,7 +48,8 @@ define :cloudfoundry_component do
       :component_name => component_name,
       :path        => ruby_path,
       :binary      => binary,
-      :config_file => config_file
+      :config_file => config_file,
+      :env_vars    => env_vars
     )
     notifies :restart, "service[#{component_name}]"
   end
