@@ -10,11 +10,13 @@ stop on runlevel [016]
 
 respawn
 
-<% @env_vars.each do |env| %>
+<%- if @env_vars %>
+<%- @env_vars.each do |env| %>
 env <%= env %>
-<% end %>
+<%- end %>
+<%- end %>
 
 env PATH="<%= @path %>:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH
 
-exec <%= @binary %> -c <%= @config_file %>
+exec <%= @binary %> -c <%= @config_file %> <%= @extra_args %>
