@@ -6,7 +6,7 @@ class Chef
       end
 
       def ruby_bin_path(version)
-        File.join(node[:rbenv][:system_prefix], "rbenv", "versions", version, "bin")
+        File.join(node['rbenv']['system_prefix'], "rbenv", "versions", version, "bin")
       end
     end
   end
