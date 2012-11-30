@@ -13,6 +13,7 @@ respawn
 <%- if @env_vars %>
 <%- @env_vars.each do |env| %>
 env <%= env %>
+export <%= env.split("=")[0] %>
 <%- end %>
 <%- end %>
 
